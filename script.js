@@ -1,22 +1,31 @@
-const myLibrary = [];
+const library = [];
 
-function Book() {
-    this.author = document.getElementById("author").value;
-    this.title = document.getElementById("title").value;
-    this.pageCount = document.getElementById("page_count").value;
-    this.haveRead = document.getElementById("have_read").value;
+function Book(author, title, pageCount, haveRead) {
+    this.author = author;
+    this.title = title;
+    this.pageCount = pageCount;
+    this.haveRead = haveRead;
 }
 
 function addBook() {
-    const book = new Book();
-    myLibrary.push(book);
-    console.log(book.title);
+    const author = document.getElementById("author").value;
+    const title = document.getElementById("title").value;
+    const pageCount = document.getElementById("page_count").value;
+    const haveRead = document.getElementById("have_read").value;
+
+    const book = new Book(author, title, pageCount, haveRead);
+    library.push(book);
+    console.log("Author: " + book.author + " | Title: " + book.title + " | Page Count: " + book.pageCount + " | Have Read: " + haveRead);
 }
 
 function testButton() {
-    console.log("This button works! Yay!");
+    console.log(library[0].haveRead);;
 }
 
 function displayLibrary() {
-    console.log(myLibrary[0].haveRead);
+    for (let book in library) {
+        for (let prop in book) {
+            console.log(prop);
+        }
+    }
 }
