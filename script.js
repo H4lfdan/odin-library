@@ -23,9 +23,11 @@ function testButton() {
 }
 
 function displayLibrary() {
-    for (let book in library) {
-        for (let prop in book) {
-            console.log(prop);
-        }
-    }
+    library.forEach((book, index) => {
+        console.log(`Book ${index + 1}:`);
+        console.log(`Author: ${book.author}`);
+        console.log(`Title: ${book.title}`);
+        console.log(`Page Count: ${book.pageCount}`);
+        console.log(`Have Read: ${book.haveRead}`);
+    })
 }
