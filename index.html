@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="new_book.showModal()">New Book</button>
+    <button onclick="displayLibrary()">Display Library</button>
+    <button onclick="testButton()">Test Stuff</button>
+    <table id="display">
+        <tr>
+            <th>Entry</th>
+            <th>Author</td>
+            <th>Title</td>
+            <th>Page Count</td>
+            <th>Have I Read It?</td>
+        </tr>
+    </table>
+    <dialog id="new_book">
+        <form action="example.com/path" method="dialog">
+            <div class="input-section">
+                <label for="author">Author</label>
+                <input type="text" id="author">
+            </div>
+            <div class="input-section">
+                <label for="title">Title</label>
+                <input type="text" id="title">
+            </div>
+            <div class="input-section">
+                <label for="page_count">Page Count</label>
+                <input type="number" id="page_count">
+            </div>
+            <div class="input-section">
+                <label for="have_read">Have Read</label>
+                <input type="checkbox" id="have_read">
+            </div>
+            <button onclick="addBook()">Submit</button>
+            <button onclick="new_book.close()">Close</button>
+        </form>
+    </dialog>
+    <script src="script.js"></script>
+</body>
+</html>
