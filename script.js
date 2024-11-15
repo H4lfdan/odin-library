@@ -11,7 +11,7 @@ function addBook() {
     const author = document.getElementById("author").value;
     const title = document.getElementById("title").value;
     const pageCount = document.getElementById("page_count").value;
-    const haveRead = document.getElementById("have_read").value;
+    const haveRead = document.getElementById("have_read");
 
     const book = new Book(author, title, pageCount, haveRead);
     library.push(book);
@@ -19,14 +19,16 @@ function addBook() {
 }
 
 function testButton() {
-    console.log(library[0].haveRead);;
+    const table = document.getElementById("display");
+    
+    
 }
 
 function displayLibrary() {
     const table = document.getElementById("display");
 
-    for(let i = 0, row; row = table.rows[i]; i++) {
-        if (i > 0) {
+    for(let i = 1, row; row = table.rows[i]; i) {
+        if (table.rows[i].id != "heading") {
             table.deleteRow(i);
         }
     }
