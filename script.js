@@ -11,7 +11,7 @@ function addBook() {
     const author = document.getElementById("author").value;
     const title = document.getElementById("title").value;
     const pageCount = document.getElementById("page_count").value;
-    const haveRead = document.getElementById("have_read");
+    const haveRead = document.getElementById("have_read").checked;
 
     const book = new Book(author, title, pageCount, haveRead);
     library.push(book);
@@ -45,11 +45,11 @@ function displayLibrary() {
         authorCell.innerHTML = book.author;
         titleCell.innerHTML = book.title;
         pageCell.innerHTML = book.pageCount;
-        // if (haveRead) {
-        //     readCell.innerHTML = "yes";
-        // } else if (!haveRead) {
-        //     readCell.innerHTML = "no";
-        // }
+        if (book.haveRead) {
+            readCell.innerHTML = "yes";
+        } else if (!book.haveRead) {
+            readCell.innerHTML = "no";
+        }
 
         console.log(`Book ${index + 1}:`);
         console.log(`Author: ${book.author}`);
