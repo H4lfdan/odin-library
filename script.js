@@ -32,17 +32,22 @@ function addBook() {
         authorCell.innerHTML = author;
         titleCell.innerHTML = title;
         pageCell.innerHTML = pageCount;
-        readCell.innerHTML = `<input type="checkbox" id="have_read${bookNum}">`;
+        readCell.innerHTML = `<input type="checkbox" id="have_read${bookNum}" onchange="toggleRead(${bookNum})">`;
         let readCheck = document.getElementById(`have_read${bookNum}`);
         if (haveRead) {
             readCheck.checked = true;
         } else if (!haveRead) {
             readCheck.checked = false;
         }
-        remCell.innerHTML = `<button onclick="testButton(${bookNum})">Remove</button>`;
+        remCell.innerHTML = `<button onclick="removeBook(${bookNum})">Remove</button>`;
 }
 
-function testButton(remNum) {
+function toggleRead(bookNum) {
+    const book = library[bookNum - 1];
+    book.haveRead = !book.haveRead;
+}
+
+function removeBook(remNum) {
     library.splice(remNum - 1, 1);
     table.deleteRow(remNum);
 
@@ -50,15 +55,23 @@ function testButton(remNum) {
         book.bookNum = index + 1;
         let currentRow = table.rows[book.bookNum];
         let numCell = currentRow.cells[0];
+        let readCell = currentRow.cells[4];
         let remCell = currentRow.cells[5];
         numCell.innerHTML = `Book ${book.bookNum}:`;
-        remCell.innerHTML = `<button onclick="testButton(${book.bookNum})">Remove</button>`;
+        readCell.innerHTML = `<input type="checkbox" id="have_read${book.bookNum}" onchange="toggleRead(${book.bookNum})">`;
+        let readCheck = document.getElementById(`have_read${book.bookNum}`);
+        if (book.haveRead) {
+            readCheck.checked = true;
+        } else if (!book.haveRead) {
+            readCheck.checked = false;
+        }
+        remCell.innerHTML = `<button onclick="removeBook(${book.bookNum})">Remove</button>`;
     })
 }
 
 function displayLibrary() {
 
     library.forEach((book) => {
-        console.log(`Book ${book.bookNum} Author: ${book.author}`);
+        console.log(`Book ${book.bookNum} Author: ${book.author} Read it?: ${book.haveRead}`);
     })
 }
