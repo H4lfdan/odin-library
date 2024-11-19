@@ -1,6 +1,7 @@
-const library = [];
+let library = [];
 
-function Book(author, title, pageCount, haveRead) {
+function Book(bookNum, author, title, pageCount, haveRead) {
+    this.bookNum = bookNum;
     this.author = author;
     this.title = title;
     this.pageCount = pageCount;
@@ -9,12 +10,13 @@ function Book(author, title, pageCount, haveRead) {
 
 function addBook() {
     const table = document.getElementById("display");
+    let bookNum = library.length + 1;
     const author = document.getElementById("author").value;
     const title = document.getElementById("title").value;
     const pageCount = document.getElementById("page_count").value;
     const haveRead = document.getElementById("have_read").checked;
 
-    const book = new Book(author, title, pageCount, haveRead);
+    const book = new Book(bookNum, author, title, pageCount, haveRead);
     library.push(book);
     console.log("Author: " + book.author + " | Title: " + book.title + " | Page Count: " + book.pageCount + " | Have Read: " + haveRead);
 
@@ -24,8 +26,9 @@ function addBook() {
         let titleCell = currentRow.insertCell(-1);
         let pageCell = currentRow.insertCell(-1);
         let readCell = currentRow.insertCell(-1);
+        let remCell = currentRow.insertCell(-1);
 
-        numCell.innerHTML = `Book ${library.length}:`;
+        numCell.innerHTML = `Book ${bookNum}:`;
         authorCell.innerHTML = author;
         titleCell.innerHTML = title;
         pageCell.innerHTML = pageCount;
@@ -34,32 +37,27 @@ function addBook() {
         } else if (!haveRead) {
             readCell.innerHTML = "no";
         }
+        remCell.innerHTML = `<button onclick="testButton(${bookNum})">Remove Book ${bookNum}</button>`;
 }
 
-function testButton() {
+function testButton(remNum) {
     const table = document.getElementById("display");
     
-    
-}
+    library.splice(remNum - 1, 1);
 
-function displayLibrary() {
-    const table = document.getElementById("display");
-
-    // for(let i = 1, row; row = table.rows[i]; i) {
-    //     if (table.rows[i].id != "heading") {
-    //         table.deleteRow(i);
-    //     }
-    // }
+    table.deleteRow(remNum);
 
     library.forEach((book, index) => {
-        // let currentRow = table.insertRow(index + 1);
-        // let numCell = currentRow.insertCell(-1);
+        book.bookNum = index + 1;
+        let currentRow = table.rows[book.bookNum];
+        let numCell = currentRow.cells[0];
         // let authorCell = currentRow.insertCell(-1);
         // let titleCell = currentRow.insertCell(-1);
         // let pageCell = currentRow.insertCell(-1);
         // let readCell = currentRow.insertCell(-1);
+        let remCell = currentRow.cells[5];
 
-        // numCell.innerHTML = `Book ${index + 1}:`;
+        numCell.innerHTML = `Book ${book.bookNum}:`;
         // authorCell.innerHTML = book.author;
         // titleCell.innerHTML = book.title;
         // pageCell.innerHTML = book.pageCount;
@@ -68,11 +66,14 @@ function displayLibrary() {
         // } else if (!book.haveRead) {
         //     readCell.innerHTML = "no";
         // }
+        remCell.innerHTML = `<button onclick="testButton(${book.bookNum})">Remove Book ${book.bookNum}</button>`;
+    })
+}
 
-        console.log(`Book ${index + 1}:`);
-        console.log(`Author: ${book.author}`);
-        console.log(`Title: ${book.title}`);
-        console.log(`Page Count: ${book.pageCount}`);
-        console.log(`Have Read: ${book.haveRead}`);
+function displayLibrary() {
+    const table = document.getElementById("display");
+
+    library.forEach((book, index) => {
+        console.log(`Book ${book.bookNum} Author: ${book.author}`);
     })
 }
